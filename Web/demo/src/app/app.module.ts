@@ -10,7 +10,9 @@ import { ResourceGetComponent } from './components/resource-get/resource-get.com
 import { ResourceEditComponent } from './components/resource-edit/resource-edit.component';
 import { SkillsAddComponent } from './components/skills-add/skills-add.component';
 import { SkillsGetComponent } from './components/skills-get/skills-get.component';
-import { ResourcesService } from './services/resources.service';
+import { ResourceService } from './services/resource.service';
+import { SkillService } from './services/skill.service';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { ResourcesService } from './services/resources.service';
     SlimLoadingBarModule,
     HttpClientModule
   ],
-  providers: [ResourcesService],
+  providers: [ResourceService, SkillService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

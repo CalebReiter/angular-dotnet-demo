@@ -5,21 +5,21 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ResourcesService {
+export class SkillService {
 
   private baseUrl = '';
 
   constructor(private http: HttpClient) { }
 
-  getResource(id: number): Observable<any> {
+  getSkill(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createResource(resource: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, resource);
+  createSkill(skill: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, skill);
   }
 
-  getResourceList(): Observable<any> {
+  getSkillList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 }
