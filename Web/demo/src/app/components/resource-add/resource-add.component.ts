@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-resource',
-  templateUrl: './add-resource.component.html',
-  styleUrls: ['./create-resource.component.css']
+  templateUrl: './resource-add.component.html',
+  styleUrls: ['./resource-add.component.css']
 })
 export class ResourceAddComponent implements OnInit {
 

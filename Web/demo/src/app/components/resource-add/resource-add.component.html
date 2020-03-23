@@ -3,10 +3,10 @@
       <form>
         <div class="form-group">
           <label class="col-md-4">Resource Name</label>
-          <input type="text" class="form-control" />
+          <input [(ngModel)]="resource.ResourceName" name="ResourceName" type="text" class="form-control" />
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Create Resource</button>
+          <button (click)="createResource()" type="submit" class="btn btn-primary">Create Resource</button>
         </div>
       </form>
     </div>
