@@ -1,3 +1,3 @@
-export default class Resource {
+export class Resource {
     ResourceName: string;
   }
