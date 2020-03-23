@@ -25,10 +25,24 @@ namespace ResourcesService
         }
 
         public IConfiguration Configuration { get; }
+        
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+        {
+            options.AddPolicy(MyAllowSpecificOrigins,
+            builder =>
+            {
+                builder.WithOrigins("https://localhost:4200",
+                "http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            });
+        });
+
             services.AddDbContext<ResourceContext>(opt =>
                opt.UseInMemoryDatabase("Resource"));
             services.AddControllers();
@@ -45,6 +59,8 @@ namespace ResourcesService
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
