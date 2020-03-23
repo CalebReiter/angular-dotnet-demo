@@ -28,7 +28,7 @@ export class ResourceAddComponent implements OnInit {
     this.resourceService.createResource(this.resource)
       .subscribe(data => console.log(data), error => console.log(error));
     this.resource = new Resource();
-    this.gotoList();
+    // this.gotoList();
   }
 
   onSubmit() {
@@ -36,7 +36,7 @@ export class ResourceAddComponent implements OnInit {
     this.save();    
   }
 
-  gotoList() {
-    this.router.navigate(['/resources']);
-  }
+  // gotoList() {
+  //   this.router.navigate(['/resources']);
+  // }
 }
