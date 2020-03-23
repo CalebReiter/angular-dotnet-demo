@@ -23,10 +23,24 @@ namespace SkillsService
         }
 
         public IConfiguration Configuration { get; }
+        
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.AddCors(options =>
+        {
+            options.AddPolicy(MyAllowSpecificOrigins,
+            builder =>
+            {
+                builder.WithOrigins("https://localhost:4200",
+                "http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
             services.AddDbContext<SkillContext>(opt =>
                opt.UseInMemoryDatabase("Skill"));
             services.AddControllers();
@@ -43,6 +57,8 @@ namespace SkillsService
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
