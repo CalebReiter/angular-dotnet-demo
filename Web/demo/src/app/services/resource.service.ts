@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ResourceService {
 
-  private baseUrl = '';
+  private baseUrl = 'https://localhost:5003/api/Resources';
 
   constructor(private http: HttpClient) { }
 
