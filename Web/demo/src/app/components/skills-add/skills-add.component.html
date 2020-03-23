@@ -3,10 +3,10 @@
       <form>
         <div class="form-group">
           <label class="col-md-4">Skill Name</label>
-          <input type="text" class="form-control" />
+          <input [(ngModel)]="skill.SkillName" name="SkillName" type="text" class="form-control" />
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Create Skill</button>
+          <button (click)="createSkill()" type="submit" class="btn btn-primary">Create Skill</button>
         </div>
       </form>
     </div>

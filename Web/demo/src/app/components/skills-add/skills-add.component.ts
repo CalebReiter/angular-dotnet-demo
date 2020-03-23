@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Skill, SkillService } from 'src/app/services/skill.service';
 
 @Component({
   selector: 'app-skills-add',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SkillsAddComponent implements OnInit {
 
-  constructor() { }
+  skill: Skill = {
+    SkillName: ''
+  }
+  loading: boolean
 
-  ngOnInit() {
+  constructor(private skillService: SkillService) { }
+
+  ngOnInit() {}
+
+  createSkill(): void {
+    this.loading = true;
+    this.skillService.createSkill(this.skill)
+      .subscribe(() => {
+        this.loading = false;
+      })
   }
 
 }
