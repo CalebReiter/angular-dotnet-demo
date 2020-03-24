@@ -3,8 +3,13 @@
       <form (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label class="col-md-4">Resource Name</label>
-          <input type="text" class="form-control" id="resourceName" required [(ngModel)]="resource.ResourceName" name="resourceName" />
+          <input type="text" class="form-control" id="name" required [(ngModel)]="resource.name" name="name" />
         </div>
+        <label class="col-md-4">Add Skills</label>
+        <div *ngFor="let skill of skills; let i=index">
+    <input type="checkbox" (change)="onChange(skill.skillName, $event.target.checked)" name="skill.skillName" />
+    {{ skill.skillName }}
+  </div><br />
         <div class="form-group">
           <button type="submit" class="btn btn-primary">Create Resource</button>
         </div>
