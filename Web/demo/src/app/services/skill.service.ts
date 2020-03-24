@@ -12,7 +12,7 @@ export interface Skill {
 })
 export class SkillService {
 
-  private baseUrl = 'https://localhost:5001/api/Skills';
+  private baseUrl = 'http://localhost:5000/api/Skills';
 
   constructor(private http: HttpClient) { }
 
