@@ -13,6 +13,14 @@ namespace ResourcesService.Controllers
     [ApiController]
     public class ResourcesController : ControllerBase
     {
+
+        public class View<T> {
+            public int pages { get; set; }
+            public int page { get; set; }
+            public int top { get; set; }
+            public IEnumerable<T> items { get; set; }
+        }
+
         private readonly ResourceContext _context;
 
         public ResourcesController(ResourceContext context)
@@ -22,9 +30,26 @@ namespace ResourcesService.Controllers
 
         // GET: api/Resources
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Resource>>> GetResources()
+        public ActionResult<View<Resource>> GetResources(string q, int? page, int? top)
         {
-            return await _context.Resources.ToListAsync();
+            var resources = from r in _context.Resources
+                select r;
+            var count = resources.Count();
+            if(!String.IsNullOrEmpty(q)) {
+                resources = resources.Where(s => s.Name.Contains(q));
+            }
+            var _top = top ?? 20;
+            _top = _top <= 0 ? 1 : _top;
+            var _page = page ?? 0;
+            var _skip = _page * _top;
+            var response = new View<Resource> {
+                pages = (int)Math.Ceiling((double) count / (double) _top),
+                page = _page,
+                top = _top,
+                items = resources.Skip(_skip).Take(_top).ToList()
+            };
+            ActionResult<View<Resource>> res = response;
+            return res;
         }
 
         // GET: api/Resources/5
