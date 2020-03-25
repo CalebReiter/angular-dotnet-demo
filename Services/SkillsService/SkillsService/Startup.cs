@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SkillsService.Models;
 using Microsoft.Extensions.Logging;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace SkillsService
 {
@@ -41,8 +42,12 @@ namespace SkillsService
                     .AllowAnyMethod();
             });
         });
-            services.AddDbContext<SkillContext>(opt =>
-               opt.UseInMemoryDatabase("Skill"));
+            services.AddDbContextPool<SkillContext>(opt =>
+               opt.UseMySql(Configuration["DatabaseConnection"],
+                mySqlOptions => {
+                    mySqlOptions.ServerVersion(new Version(8, 0, 19), ServerType.MySql);
+                    mySqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                }));
             services.AddControllers();
         }
 

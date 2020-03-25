@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ResourcesService.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 
 using Microsoft.Extensions.Logging;
@@ -43,8 +44,12 @@ namespace ResourcesService
             });
         });
 
-            services.AddDbContext<ResourceContext>(opt =>
-               opt.UseInMemoryDatabase("Resource"));
+            services.AddDbContextPool<ResourceContext>(opt =>
+               opt.UseMySql(Configuration["DatabaseConnection"],
+                mySqlOptions => {
+                    mySqlOptions.ServerVersion(new Version(8, 0, 19), ServerType.MySql);
+                    mySqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                }));
             services.AddControllers();
         }
 
