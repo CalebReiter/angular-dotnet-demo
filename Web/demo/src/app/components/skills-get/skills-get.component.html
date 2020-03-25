@@ -1,3 +1,61 @@
-<div>
-    {{skills}}
+<!-- <h1>
+    Skill List
+</h1>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Skill Id</th>
+    <th scope="col">Skill Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let skill of skills; index as i">
+    <td>
+      {{ skill.id }}
+    </td>
+    <td>{{ skill.skillName }}</td>
+  </tr>
+  </tbody>
+
+</table>
+<div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+    </ngb-pagination>
+  
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div> -->
+
+  <p>You can bind our <code>NgbPagination</code> component with slicing the data list</p>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Skill Id</th>
+      <th scope="col">Skill Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let skill of listSkills; index as i">
+      <td>
+        {{ skill.id }}
+      </td>
+      <td>{{ skill.skillName }}</td>
+    </tr>
+    </tbody>
+  
+  </table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
 </div>

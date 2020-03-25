@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 
@@ -29,8 +29,8 @@ import { SkillService } from './services/skill.service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    SlimLoadingBarModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [ResourceService, SkillService ],
   bootstrap: [AppComponent]
