@@ -33,10 +33,10 @@ namespace SkillsService.Controllers
         {
             var skills = from r in _context.Skills
                 select r;
-            var count = skills.Count();
             if(!String.IsNullOrEmpty(q)) {
                 skills = skills.Where(s => s.SkillName.Contains(q));
             }
+            var count = skills.Count();
             var _top = top ?? 20;
             _top = _top <= 0 ? 1 : _top;
             var _page = page ?? 0;

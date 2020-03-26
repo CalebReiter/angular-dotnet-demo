@@ -34,10 +34,10 @@ namespace ResourcesService.Controllers
         {
             var resources = from r in _context.Resources
                 select r;
-            var count = resources.Count();
             if(!String.IsNullOrEmpty(q)) {
                 resources = resources.Where(s => s.Name.Contains(q));
             }
+            var count = resources.Count();
             var _top = top ?? 20;
             _top = _top <= 0 ? 1 : _top;
             var _page = page ?? 0;
