@@ -9,7 +9,7 @@ import { SkillService } from 'src/app/services/skill.service';
   providers: [DecimalPipe]
 })
 export class SkillsGetComponent implements OnInit {
-  skillsData: Array<{}>
+  skills: Array<{}>
   page = 1;
   pageSize = 4;
   collectionSize = null
@@ -24,13 +24,13 @@ export class SkillsGetComponent implements OnInit {
     this.skillService.getSkillList()
       .subscribe((skills) => {
         this.collectionSize = skills.length
-        this.skillsData = skills
+        this.skills = skills
       })
   }
 
   get listSkills() {
-    if(this.skillsData) {
-    return this.skillsData.map((skill, i) => ({id: i + 1, ...skill}))
+    if(this.skills) {
+    return this.skills.map((skill, i) => ({id: i + 1, ...skill}))
     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
   }
