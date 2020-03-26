@@ -20,6 +20,14 @@ export class SkillService {
     return this.http.get<Skill>(`${this.baseUrl}/${id}`);
   }
 
+  deleteSkill(id: number): Observable<Skill> {
+    return this.http.delete<Skill>(`${this.baseUrl}/${id}`);
+  }
+
+  updateSkill(id: number, skill: string): Observable<Skill> {
+    return this.http.put<Skill>(`${this.baseUrl}/${id}`, skill);
+  }
+
   createSkill(skill: Skill): Observable<Skill> {
     return this.http.post<Skill>(`${this.baseUrl}`, skill);
   }

@@ -1,42 +1,8 @@
-<!-- <h1>
-    Skill List
-</h1>
-{{console.log(skills)}}
-<table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">Skill Id</th>
-      <th scope="col">Skill Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let skill of skills.items">
-      <td>
-        {{skill.id}}
-      </td>
-      <td>
-       {{skill.skillName}}
-      </td>
-    </tr>
-    </tbody>
-  
-  </table>
-
-<div class="d-flex justify-content-between p-2">
-  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
-  </ngb-pagination>
-
-  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-    <option [ngValue]="2">2 items per page</option>
-    <option [ngValue]="4">4 items per page</option>
-    <option [ngValue]="6">6 items per page</option>
-  </select>
-</div> -->
 <h1>Skill List</h1>
 <form>
   <div class="form-group form-inline">
-      Full text search: <input class="form-control ml-2" type="text" [(ngModel)]="search" name="search" /><br />
-      <a routerLink="/skills" [queryParams]="{ page: page, q: search}">Search</a>
+      Search Skills: <input class="form-control ml-2" type="text" [(ngModel)]="search" name="search" /><br />
+      &nbsp;&nbsp;<button routerLink="/skills" [queryParams]="{ page: page, q: search}" type="button" class="btn btn-primary">Search</button>
   </div>
 </form>
 
@@ -47,6 +13,7 @@
       <tr>
         <th scope="col">Skill Id</th>
         <th scope="col">Skill Name</th>
+        <th scope="col"></th>
       </tr>
       </thead>
       <tbody>
@@ -56,6 +23,11 @@
         </td>
         <td>
          {{item.skillName}}
+        </td>
+        <td>
+          <button (click)="deleteSkill(item.id)"type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </td>
       </tr>
       </tbody>
@@ -81,4 +53,9 @@
           </li>
       </ul>
   </div>
+</div>
+
+<div [hidden]="!submitted">
+  <br />
+  <h4>Skill created succesfully!</h4>
 </div>

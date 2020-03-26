@@ -1,14 +1,18 @@
-<h1>Create Skill</h1>
+<h1>Update Skill</h1>
 <div class="card">
     <div class="card-body">
       <form>
         <div class="form-group">
-          <label class="col-md-4">Skill Name</label>
+          <label class="col-md-4">Skill Id</label>
+          <input [(ngModel)]="skill.id" name="id" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">New Skill Name</label>
           <input [(ngModel)]="skill.SkillName" name="SkillName" type="text" class="form-control" />
         </div>
         <div class="form-group">
           <div [hidden]="!submitted">
-          <span class="badge badge-success">Skill created successfully!</span>
+          <span class="badge badge-success">Skill updated successfully!</span>
           <br />
           <br />
         </div>
@@ -17,7 +21,7 @@
           <br />
           <br />
         </div>
-          <button (click)="createSkill()" type="submit" class="btn btn-primary">Create Skill</button>
+          <button (click)="updateSkill()" type="submit" class="btn btn-primary">Update Skill</button>
         </div>      
       </form>
     </div>

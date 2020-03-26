@@ -5,6 +5,7 @@ import { ResourceEditComponent } from './components/resource-edit/resource-edit.
 import { ResourceGetComponent } from './components/resource-get/resource-get.component';
 import { SkillsAddComponent} from './components/skills-add/skills-add.component';
 import { SkillsGetComponent } from './components/skills-get/skills-get.component';
+import { SkillsUpdateComponent } from './components/skills-update/skills-update.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'skills',
     component: SkillsGetComponent
+  },
+  {
+    path: 'skill/update',
+    component: SkillsUpdateComponent
   }
 ];
 

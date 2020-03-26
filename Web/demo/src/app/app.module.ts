@@ -10,6 +10,7 @@ import { ResourceAddComponent } from './components/resource-add/resource-add.com
 import { ResourceGetComponent } from './components/resource-get/resource-get.component';
 import { ResourceEditComponent } from './components/resource-edit/resource-edit.component';
 import { SkillsAddComponent } from './components/skills-add/skills-add.component';
+import { SkillsUpdateComponent } from './components/skills-update/skills-update.component';
 import { SkillsGetComponent } from './components/skills-get/skills-get.component';
 import { ResourceService } from './services/resource.service';
 import { SkillService } from './services/skill.service';
@@ -22,7 +23,8 @@ import { SkillService } from './services/skill.service';
     ResourceGetComponent,
     ResourceEditComponent,
     SkillsAddComponent,
-    SkillsGetComponent
+    SkillsGetComponent,
+    SkillsUpdateComponent
   ],
   imports: [
     BrowserModule,
