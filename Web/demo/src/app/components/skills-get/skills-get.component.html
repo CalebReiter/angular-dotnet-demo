@@ -1,4 +1,4 @@
-<h1>
+<!-- <h1>
     Skill List
 </h1>
 {{console.log(skills)}}
@@ -31,4 +31,54 @@
     <option [ngValue]="4">4 items per page</option>
     <option [ngValue]="6">6 items per page</option>
   </select>
+</div> -->
+<h1>Skill List</h1>
+<form>
+  <div class="form-group form-inline">
+      Full text search: <input class="form-control ml-2" type="text" [(ngModel)]="search" name="search" /><br />
+      <a routerLink="/skills" [queryParams]="{ page: page, q: search}">Search</a>
+  </div>
+</form>
+
+<div class="card text-center m-3">
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Skill Id</th>
+        <th scope="col">Skill Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of skills.items">
+        <td>
+          {{item.id}}
+        </td>
+        <td>
+         {{item.skillName}}
+        </td>
+      </tr>
+      </tbody>
+    
+    </table>
+  </div>
+  <div class="card-footer pb-0 pt-3">
+      <ul *ngIf="skills.pages" class="pagination">
+          <li [ngClass]="{disabled:skills.page === 0}" class="page-item first-item">
+              <a routerLink="/skills" [queryParams]="{ page: 1, q: search }" class="page-link">First</a>
+          </li>
+          <li [ngClass]="{disabled:skills.page === 0}" class="page-item previous-item">
+              <a routerLink="/skills" [queryParams]="{ page: skills.page, q: search }" class="page-link">Previous</a>
+          </li>
+          <li *ngFor="let page of pages" [ngClass]="{active:skills.page === (page-1)}" class="page-item number-item">
+              <a routerLink="/skills" [queryParams]="{ page: page, q: search }" class="page-link">{{page}}</a>
+          </li>
+          <li [ngClass]="{disabled:skills.page === (skills.pages-1)}" class="page-item next-item">
+              <a routerLink="/skills" [queryParams]="{ page: skills.page + 2, q: search }" class="page-link">Next</a>
+          </li>
+          <li [ngClass]="{disabled:skills.page === (skills.pages-1)}" class="page-item last-item">
+              <a routerLink="/skills" [queryParams]="{ page: skills.pages, q: search }" class="page-link">Last</a>
+          </li>
+      </ul>
+  </div>
 </div>
