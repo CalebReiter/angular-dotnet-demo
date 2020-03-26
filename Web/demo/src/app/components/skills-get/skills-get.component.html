@@ -1,6 +1,7 @@
 <h1>
     Skill List
 </h1>
+{{console.log(skills)}}
 <table class="table table-striped">
     <thead>
     <tr>
@@ -9,7 +10,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let skill of listSkills">
+    <tr *ngFor="let skill of skills.items">
       <td>
         {{skill.id}}
       </td>

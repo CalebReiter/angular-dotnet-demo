@@ -13,6 +13,7 @@ export class SkillsGetComponent implements OnInit {
   page = 1;
   pageSize = 4;
   collectionSize = null
+  console = console;
 
   constructor(private skillService: SkillService) {  }
 
@@ -30,7 +31,7 @@ export class SkillsGetComponent implements OnInit {
 
   get listSkills() {
     if(this.skills) {
-    return this.skills.map((skill, i) => ({id: i + 1, ...skill}))
+    return this.skills.items.map((skill, i) => ({id: i + 1, ...skill}))
     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
   }
