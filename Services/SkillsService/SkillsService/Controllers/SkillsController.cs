@@ -13,6 +13,13 @@ namespace SkillsService.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
+
+        public class View<T> {
+            public int pages { get; set; }
+            public int page { get; set; }
+            public int top { get; set; }
+            public IEnumerable<T> items { get; set; }
+        }
         private readonly SkillContext _context;
 
         public SkillsController(SkillContext context)
@@ -22,9 +29,26 @@ namespace SkillsService.Controllers
 
         // GET: api/Skills
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
+        public ActionResult<View<Skill>> GetSkills(string q, int? page, int? top)
         {
-            return await _context.Skills.ToListAsync();
+            var skills = from r in _context.Skills
+                select r;
+            if(!String.IsNullOrEmpty(q)) {
+                skills = skills.Where(s => s.SkillName.Contains(q));
+            }
+            var count = skills.Count();
+            var _top = top ?? 20;
+            _top = _top <= 0 ? 1 : _top;
+            var _page = page ?? 0;
+            var _skip = _page * _top;
+            var response = new View<Skill> {
+                pages = (int)Math.Ceiling((double) count / (double) _top),
+                page = _page,
+                top = _top,
+                items = skills.Skip(_skip).Take(_top).ToList()
+            };
+            ActionResult<View<Skill>> res = response;
+            return res;
         }
 
         // GET: api/Skills/5
