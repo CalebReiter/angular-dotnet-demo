@@ -1,13 +1,6 @@
 <h1>
     Skill List
 </h1>
-
-<form>
-    <div class="form-group form-inline">
-        Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
-    </div>
-  </form>
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -16,11 +9,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let skill of listSkills, index as i">
+    <tr *ngFor="let skill of listSkills">
       <td>
-        {{ skill.id }}
+        {{skill.id}}
       </td>
-      <td>{{ skill.skillName }}</td>
+      <td>
+       {{skill.skillName}}
+      </td>
     </tr>
     </tbody>
   
