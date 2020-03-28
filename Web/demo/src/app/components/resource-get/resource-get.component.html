@@ -1,3 +1,65 @@
-<div>
-{{resources}}
+<h1>Resource List</h1>
+<form>
+    <div class="form-group form-inline">
+        Search Resources: <input class="form-control ml-2" type="text" [(ngModel)]="search" name="search" /><br />
+        &nbsp;&nbsp;<button routerLink="/resources" [queryParams]="{ page: page, q: search}" type="button"
+            class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Resource Id</th>
+                    <th scope="col">Resource Name</th>
+                    <th scope="col">Skills</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of resource.items">
+                    <td>
+                        {{item.id}}
+                    </td>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        {{item.skills}}
+                    </td>
+                    <td>
+                        <button (click)="deleteResource(item.id)" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div class="card-footer pb-0 pt-3">
+        <ul *ngIf="resource.pages" class="pagination">
+            <li [ngClass]="{disabled:resource.page === 0}" class="page-item first-item">
+                <a routerLink="/resources" [queryParams]="{ page: 1, q: search }" class="page-link">First</a>
+            </li>
+            <li [ngClass]="{disabled:resource.page === 0}" class="page-item previous-item">
+                <a routerLink="/resources" [queryParams]="{ page: resource.page, q: search }"
+                    class="page-link">Previous</a>
+            </li>
+            <li *ngFor="let page of pages" [ngClass]="{active:resource.page === (page-1)}"
+                class="page-item number-item">
+                <a routerLink="/resources" [queryParams]="{ page: page, q: search }" class="page-link">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:resource.page === (resource.pages-1)}" class="page-item next-item">
+                <a routerLink="/resources" [queryParams]="{ page: resource.page + 2, q: search }"
+                    class="page-link">Next</a>
+            </li>
+            <li [ngClass]="{disabled:resource.page === (resource.pages-1)}" class="page-item last-item">
+                <a routerLink="/resources" [queryParams]="{ page: resource.pages, q: search }"
+                    class="page-link">Last</a>
+            </li>
+        </ul>
+    </div>
 </div>

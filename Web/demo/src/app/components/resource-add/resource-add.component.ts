@@ -1,75 +1,79 @@
-import { ResourceService } from '../../services/resource.service';
+import { ResourceService, Resource } from '../../services/resource.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { SkillService } from 'src/app/services/skill.service';
-import { Resource } from '../../models/Resource';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+import { timer } from 'rxjs';
 
 
 @Component({
-  selector: 'app-create-resource',
+  selector: 'resource-add-component',
   templateUrl: './resource-add.component.html',
   styleUrls: ['./resource-add.component.css']
 })
 export class ResourceAddComponent implements OnInit {
 
-  resource: Resource = new Resource();
-  submitted = false;
-  form: FormGroup;
+  dropdownSettings:IDropdownSettings;
 
-  constructor(private resourceService: ResourceService, private skillService: SkillService,
-    private router: Router, private fb: FormBuilder) { }
-
-  newResource(): void {
-    this.submitted = false;
-    this.resource = new Resource();
+  resource: Resource = {
+    name: '',
+    skills: ''
   }
-  skills: Array<{}>
 
-  ngOnInit() {
-    this.getSkills()
-    this.form = this.fb.group({
-      name: this.fb.array([])
-    });
-  }
+  skills = []
+  selectedItems = [];  
+  loading: boolean
+  submitted: boolean
+  submitError: boolean
+  console = console
+
+  constructor(private resourceService: ResourceService, private skillService: SkillService, 
+    @Inject(DOCUMENT) private _document: Document) { }
 
   getSkills(): void {
     this.skillService.getSkillList()
-      .subscribe(data=>{
-        this.skills=data;
+      .subscribe(skills=>{
+        this.skills=skills;
+      })
+  }
+
+
+  ngOnInit() {
+    this.getSkills()
+    if(this.skills)
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'skillName',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 20,
+      allowSearchFilter: true
+    };
+  }
+
+  onItemSelect(item: any) {
+    this.selectedItems.push(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
   
-      } 
-      )
-  }
-
-
-  onChange(name: string, isChecked: boolean) {
-    const skills = (this.form.controls.name as FormArray);
-
-    if (isChecked) {
-      skills.push(new FormControl(name));
-    } else {
-      const index = skills.controls.findIndex(x => x.value === name);
-      skills.removeAt(index);
-    }
-  }
-
-
-  save() {
-    this.resource.skills = this.form.value.name.toString()
+  createResource(): void {
+    this.loading = true;
+    this.resource.skills = this.selectedItems.toString()
+    if(this.resource.name != '') {
     this.resourceService.createResource(this.resource)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.resource = new Resource();
-    // this.gotoList();
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    console.log(this.form.value.name.toString());
-    this.save();    
-  }
-
-  // gotoList() {
-  //   this.router.navigate(['/resources']);
-  // }
+      .subscribe(() => {
+        this.loading = false;
+        this.submitted = true;
+        this.submitError = false;
+        timer(400).subscribe(x => { this._document.defaultView.location.reload() })
+      })
+    } else {
+        this.loading = false;
+        this.submitError = true;
+        this.submitted = false;
+      }
+    }
 }

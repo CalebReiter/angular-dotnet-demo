@@ -2,8 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface View<T> {
+  pages: number,
+  page: number,
+  top: number,
+  items: T[]
+}
+
 export interface Skill {
-  id?: number
+  Id?: number
   SkillName: string
 }
 
@@ -24,8 +31,8 @@ export class SkillService {
     return this.http.delete<Skill>(`${this.baseUrl}/${id}`);
   }
 
-  updateSkill(id: number, skill: string): Observable<Skill> {
-    return this.http.put<Skill>(`${this.baseUrl}/${id}`, skill);
+  updateSkill(skill: Skill): Observable<Skill> {
+    return this.http.put<Skill>(`${this.baseUrl}/${skill.Id}`, skill);
   }
 
   createSkill(skill: Skill): Observable<Skill> {
@@ -34,5 +41,9 @@ export class SkillService {
 
   getSkillList(): Observable<Skill[]> {
     return this.http.get<Skill[]>(`${this.baseUrl}`);
+  }
+
+  loadPage(top: number, page: number, q: string) {
+   return this.http.get<View<Skill>>(`${this.baseUrl}/?top=${top}&page=${page - 1}&q=${q}`);
   }
 }

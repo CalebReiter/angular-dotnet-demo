@@ -1,21 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { SkillService } from 'src/app/services/skill.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { SkillService, View, Skill } from 'src/app/services/skill.service';
+import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-
-
-interface View<T> {
-  pages: number,
-  page: number,
-  top: number,
-  items: T[]
-}
-
-interface Skill {
-  Id?: number
-  SkillName: string
-}
 
 @Component({
   selector: 'skills-get-component',
@@ -23,6 +9,7 @@ interface Skill {
   styleUrls: ['./skills-get.component.css'],
 })
 export class SkillsGetComponent implements OnInit {
+
   skills: View<Skill> = {
     page: 0,
     pages: 0,
@@ -31,7 +18,7 @@ export class SkillsGetComponent implements OnInit {
   };
   pages: number[] = [];
 
-  constructor(private skillService: SkillService, private http: HttpClient,
+  constructor(private skillService: SkillService,
     private route: ActivatedRoute, @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit() {
@@ -41,12 +28,12 @@ export class SkillsGetComponent implements OnInit {
     });
   }
 
-
-  private loadPage(page: number, q: string) {
-    this.http.get<View<Skill>>(`http://localhost:5000/api/Skills?top=${this.skills.top}&page=${page - 1}&q=${q}`).subscribe(skills => {
-      this.skills = skills;
-      this.pages = new Array(skills.pages).fill(0).map((_, i) => i + 1);
-    });
+  loadPage(page: number, q: string) {
+    this.skillService.loadPage(this.skills.top, page, q)
+      .subscribe(skills => {
+        this.skills = skills;
+        this.pages = new Array(skills.pages).fill(0).map((_, i) => i + 1);
+      })
   }
 
   deleteSkill(id: number) {
@@ -55,5 +42,4 @@ export class SkillsGetComponent implements OnInit {
         error => console.log(error));
     return this._document.defaultView.location.reload()
   }
-
 }

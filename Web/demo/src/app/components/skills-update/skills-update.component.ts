@@ -2,40 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { Skill, SkillService } from 'src/app/services/skill.service';
 
 @Component({
-  selector: 'app-skills-update',
+  selector: 'skills-update-component',
   templateUrl: './skills-update.component.html',
   styleUrls: ['./skills-update.component.css']
 })
 export class SkillsUpdateComponent implements OnInit {
 
   skill: Skill = {
-    id: null,
+    Id: null,
     SkillName: ''
   }
+
   loading: boolean
   submitted: boolean
   submitError: boolean
 
+
   constructor(private skillService: SkillService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   updateSkill(): void {
     this.loading = true;
-    if(this.skill.SkillName != '') {
+    if (this.skill.SkillName != '') {
       console.log(this.skill.SkillName)
-      console.log(this.skill.id)
-    this.skillService.updateSkill(this.skill.id, this.skill.SkillName)
-      .subscribe(() => {
-        this.loading = false;
-        this.submitted = true;
-        this.submitError = false;
-        this.skill.SkillName = ''
-      })
+      console.log(this.skill.Id)
+      this.skillService.updateSkill(this.skill)
+        .subscribe(() => {
+          this.loading = false;
+          this.submitted = true;
+          this.submitError = false;
+          this.skill.SkillName = ''
+        })
     } else {
-        this.loading = false;
-        this.submitError = true;
-        this.submitted = false;
-      }
+      this.loading = false;
+      this.submitError = true;
+      this.submitted = false;
     }
+  }
 }

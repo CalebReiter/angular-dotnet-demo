@@ -1,34 +1,25 @@
 <nav class="navbar navbar-expand-sm bg-light">
   <div class="container-fluid">
-    <ul class="navbar-nav">
-      <!-- <li class="nav-item">
-        <a routerLink="resource/create" class="nav-link" routerLinkActive="active">
-          Create Resource
-        </a>
+    <ul class="navbar-nav container">
+      <li ngbDropdown class="nav-item">
+        <a href (click)="false" class="nav-link" ngbDropdownToggle>Resources</a>
+        <div ngbDropdownMenu>
+          <button routerLink="resource/create" ngbDropdownItem>Create Resource</button>
+          <button routerLink="resources" ngbDropdownItem>Resource List</button>
+        </div>
       </li>
-      <li class="nav-item">
-        <a routerLink="resources" class="nav-link" routerLinkActive="active">
-          Resources
-        </a>
-      </li>  -->
-      <li class="nav-item">
-        <a routerLink="skill/create" class="nav-link" routerLinkActive="active">
-          Create Skill
-        </a>
+      <li><a href="/"><h4>Angular/.NET Demo</h4></a></li>
+      <li ngbDropdown class="nav-item">
+        <a href (click)="false" class="nav-link" ngbDropdownToggle>Skills</a>
+        <div ngbDropdownMenu>
+          <button routerLink="skill/create" ngbDropdownItem>Create Skill</button>
+          <button routerLink="skill/update" ngbDropdownItem>Update Skill</button>
+          <button routerLink="skills" ngbDropdownItem>Skill List</button>
+        </div>
       </li>
-      <li class="nav-item">
-        <a routerLink="skill/update" class="nav-link" routerLinkActive="active">
-          Update Skill
-        </a>
-      </li>  
-      <li class="nav-item">
-        <a routerLink="skills" class="nav-link" routerLinkActive="active">
-          Skills
-        </a>
-      </li> 
     </ul>
   </div>
-</nav>
+</nav><br />
 
 <div class="container">
   <router-outlet></router-outlet>
